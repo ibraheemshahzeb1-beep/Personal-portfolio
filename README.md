@@ -3,12 +3,12 @@
 Welcome to my personal portfolio repository! This project showcases my skills, experience, and the digital work I have done, including video editing, digital design, and web development.
 
 ## 🚀 About Me
-I am a passionate digital creator and entrepreneur with an interest in technology, high-performance hardware, and digital media. I specialize in creating engaging visual content and building online ventures.
+I am a passionate digital creator and entrepreneur with an interest in technology and digital media. I specialize in creating engaging visual content and building online ventures.
 
 ### Core Skills & Expertise
 * **Video Editing & Production:** 3+ years of experience using industry-standard software including Adobe Premiere Pro, Adobe After Effects, and Filmora.
 * **Digital Design:** Crafting clean visual assets and UI designs.
-* **E-Commerce & Digital Management:** Experience running Shopify dropshipping and online business listings.
+* **E-Commerce & Digital Management:** Experience running webs and online business listings.
 * **Financial Analysis:** Keen interest in analyzing market trends, charting, and studying financial markets.
 
 ## 🛠️ Tech Stack & Tools Used
