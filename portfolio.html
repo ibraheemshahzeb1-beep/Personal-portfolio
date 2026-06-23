@@ -1,13 +1,17 @@
+```html
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ibraheem Shahzeb | Personal Portfolio</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Plus Jakarta Sans & Space Grotesk) -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -16,11 +20,22 @@
                     },
                     colors: {
                         brand: {
-                            dark: '#0B0F19',
-                            card: '#161F30',
-                            accent: '#14B8A6', 
-                            secondary: '#3B82F6', 
-                            falcon: '#F59E0B' 
+                            dark: '#070A13',
+                            cardDark: '#111827',
+                            cardLight: '#F3F4F6',
+                            accent: '#14B8A6', /* Premium Teal */
+                            secondary: '#3B82F6', /* Electric Blue */
+                            falcon: '#F59E0B' /* Falcon House Gold */
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
                 }
@@ -28,168 +43,217 @@
         }
     </script>
     <style>
-        .glow-teal:hover {
-            box-shadow: 0 0 20px rgba(20, 184, 166, 0.4);
-        }
-        .glow-card {
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
+        /* Modern Premium Glassmorphism & Shadow Styles */
+        .glass-panel {
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .light .glass-panel {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        /* Custom scrollbar matching brand aesthetics */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0B0F19;
+            background: #070A13;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #F9FAFB;
         }
         ::-webkit-scrollbar-thumb {
             background: #1F2937;
             border-radius: 4px;
+        }
+        .light ::-webkit-scrollbar-thumb {
+            background: #E5E7EB;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #14B8A6;
         }
     </style>
 </head>
-<body class="bg-brand-dark text-gray-100 font-sans antialiased overflow-x-hidden">
+<body class="bg-brand-dark text-gray-100 font-sans antialiased overflow-x-hidden transition-colors duration-300 dark:bg-brand-dark dark:text-gray-100 light:bg-slate-50 light:text-slate-900">
 
-    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-brand-accent text-brand-dark px-6 py-3 rounded-xl font-semibold shadow-lg flex items-center space-x-2">
-        <span id="toast-message">Message sent successfully!</span>
+    <!-- Custom Toast Notification System -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-gradient-to-r from-brand-accent to-brand-secondary text-white px-6 py-3.5 rounded-2xl font-semibold shadow-2xl flex items-center space-x-3">
+        <span class="flex h-2.5 w-2.5 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+        </span>
+        <span id="toast-message">Action processed successfully!</span>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-40 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 w-full z-40 bg-brand-dark/80 dark:bg-brand-dark/80 light:bg-white/80 backdrop-blur-md border-b border-white/5 light:border-slate-200/50 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-accent to-brand-secondary flex items-center justify-center font-display font-bold text-white text-xl shadow-lg">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-accent to-brand-secondary flex items-center justify-center font-display font-bold text-white text-xl shadow-lg shadow-brand-accent/20">
                     IS
                 </div>
-                <span class="font-display font-bold text-lg tracking-wider bg-gradient-to-r from-white via-gray-200 to-brand-accent bg-clip-text text-transparent hidden sm:inline-block">
-                    IBRAHEEM SHAHZEB
-                </span>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-base sm:text-lg tracking-wider bg-gradient-to-r from-white via-gray-200 to-brand-accent dark:from-white dark:to-brand-accent light:from-slate-900 light:to-brand-secondary bg-clip-text text-transparent">
+                        IBRAHEEM SHAHZEB
+                    </span>
+                    <span class="text-[10px] tracking-widest text-brand-accent font-semibold uppercase -mt-1">Portfolio</span>
+                </div>
             </div>
             
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="#about" class="hover:text-brand-accent transition-colors">Journey</a>
-                <a href="#ventures" class="hover:text-brand-accent transition-colors">Timeline</a>
-                <a href="#portfolio" class="hover:text-brand-accent transition-colors">Achievements</a>
-                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-brand-dark font-semibold hover:opacity-90 transition-opacity">Contact</a>
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
+                <a href="#about" class="text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent transition-colors">Journey</a>
+                <a href="#ventures" class="text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent transition-colors">Timeline</a>
+                <a href="#skills" class="text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent transition-colors">Skillset</a>
+                <a href="#portfolio" class="text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent transition-colors">Achievements</a>
+                
+                <!-- Theme Switcher Button -->
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-white/5 dark:bg-white/5 light:bg-slate-100 border border-white/10 light:border-slate-200 hover:text-brand-accent transition-all" title="Toggle Visual Style">
+                    <!-- Sun Icon (Visible in dark mode) -->
+                    <svg id="sun-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m2.828 0l-.707-.707m12.02-12.02l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                    <!-- Moon Icon (Visible in light mode) -->
+                    <svg id="moon-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+
+                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-bold hover:shadow-lg hover:shadow-brand-accent/20 hover:scale-[1.02] transition-all">Contact</a>
             </div>
 
-            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
+            <!-- Mobile Actions -->
+            <div class="flex items-center space-x-4 md:hidden">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-white/5 dark:bg-white/5 light:bg-slate-100 border border-white/10 hover:text-brand-accent transition-all">
+                    <svg id="sun-icon-mobile" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m2.828 0l-.707-.707m12.02-12.02l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                    <svg id="moon-icon-mobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <button onclick="toggleMobileMenu()" class="text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-white/5 px-4 pt-2 pb-4 space-y-3 transition-all duration-300">
-            <a href="#about" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-brand-accent py-2">Journey</a>
-            <a href="#ventures" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-brand-accent py-2">Timeline</a>
-            <a href="#portfolio" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-brand-accent py-2">Achievements</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="block text-center py-2.5 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-brand-dark font-semibold">Contact</a>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden bg-brand-dark/95 dark:bg-brand-dark/95 light:bg-white border-b border-white/5 light:border-slate-200 px-4 pt-2 pb-6 space-y-3 transition-all duration-300">
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent py-2 font-medium">Journey</a>
+            <a href="#ventures" onclick="toggleMobileMenu()" class="block text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent py-2 font-medium">Timeline</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="block text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent py-2 font-medium">Skillset</a>
+            <a href="#portfolio" onclick="toggleMobileMenu()" class="block text-gray-300 dark:text-gray-300 light:text-slate-600 hover:text-brand-accent py-2 font-medium">Achievements</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-center py-3 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-bold">Contact</a>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 px-4 overflow-hidden">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <!-- Premium Radial Ambient Glow -->
+        <div class="absolute top-1/4 left-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-brand-accent/10 dark:bg-brand-accent/10 light:bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-brand-secondary/10 dark:bg-brand-secondary/10 light:bg-brand-secondary/5 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
 
         <div class="max-w-5xl mx-auto text-center relative z-10">
-            <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-6">
-                <span class="w-2.5 h-2.5 bg-brand-accent rounded-full animate-pulse"></span>
-                <span class="text-xs font-semibold text-brand-accent uppercase tracking-widest font-display">House Vice Captain • Falcon House</span>
+            <!-- House Vice Captain Badge -->
+            <div class="inline-flex items-center space-x-2 bg-white/5 dark:bg-white/5 light:bg-slate-100 border border-white/10 light:border-slate-200 px-4 py-2 rounded-full mb-6 animate-float">
+                <span class="w-2.5 h-2.5 bg-brand-falcon rounded-full animate-ping"></span>
+                <span class="text-xs font-bold tracking-widest uppercase font-display text-brand-falcon">House Vice Captain • Falcon House</span>
             </div>
 
-            <h1 class="text-4xl sm:text-6xl md:text-7xl font-display font-extrabold tracking-tight mb-6">
+            <!-- Big Impact Heading -->
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-display font-extrabold tracking-tight mb-8 leading-tight dark:text-white light:text-slate-950">
                 Pioneering Tech, <br class="hidden sm:inline" />
-                Leadership & <span class="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Creative Innovation</span>
+                Leadership & <span class="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Creative Ventures</span>
             </h1>
 
-            <p class="text-lg sm:text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
-                Hi, I'm <strong class="text-white font-semibold">Ibraheem Shahzeb</strong>, a young student entrepreneur, tech innovator, and athlete based in Lahore, Pakistan.
+            <!-- Professional Summary Intro -->
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-400 light:text-slate-600 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+                Hello, I'm <strong class="text-white light:text-slate-900 font-bold">Ibraheem Shahzeb</strong>, a Game Developer, tech innovator, and athlete based in Lahore, Pakistan.
             </p>
 
+            <!-- Call to Actions -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-brand-dark font-bold hover:shadow-[0_0_25px_rgba(20,184,166,0.5)] transition-all flex items-center justify-center space-x-2">
-                    <span>Explore My Journey</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-6l-7 7-7-7"></path></svg>
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-bold hover:shadow-[0_0_30px_rgba(20,184,166,0.4)] hover:scale-[1.02] transition-all flex items-center justify-center space-x-2">
+                    <span>Explore My Profile</span>
+                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 13l-7 7-7-7m14-6l-7 7-7-7"></path></svg>
                 </a>
-                <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold transition-all flex items-center justify-center space-x-2">
-                    <span>Get In Touch</span>
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 dark:bg-white/5 light:bg-slate-100 border border-white/10 light:border-slate-200 text-gray-200 dark:text-gray-200 light:text-slate-800 font-semibold hover:bg-white/10 light:hover:bg-slate-200 transition-all flex items-center justify-center">
+                    <span>Get in Touch</span>
                 </a>
             </div>
 
+            <!-- Enhanced High Impact Stats Bar -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20 max-w-4xl mx-auto">
-                <div class="glow-card bg-brand-card/40 p-6 rounded-2xl">
-                    <div class="text-3xl sm:text-4xl font-bold font-display text-brand-accent">15</div>
-                    <div class="text-xs sm:text-sm text-gray-400 mt-1 uppercase tracking-wider font-semibold">Years of Age</div>
+                <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-brand-cardLight/80 p-6 rounded-2xl shadow-lg hover:translate-y-[-4px] transition-transform">
+                    <div class="text-4xl font-bold font-display text-brand-accent">2020</div>
+                    <div class="text-xs text-gray-400 light:text-slate-500 mt-2 uppercase tracking-widest font-semibold">Active Since</div>
                 </div>
-                <div class="glow-card bg-brand-card/40 p-6 rounded-2xl">
-                    <div class="text-3xl sm:text-4xl font-bold font-display text-brand-secondary">1,000+</div>
-                    <div class="text-xs sm:text-sm text-gray-400 mt-1 uppercase tracking-wider font-semibold">YouTube Subs</div>
+                <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-brand-cardLight/80 p-6 rounded-2xl shadow-lg hover:translate-y-[-4px] transition-transform">
+                    <div class="text-4xl font-bold font-display text-brand-secondary">1K+</div>
+                    <div class="text-xs text-gray-400 light:text-slate-500 mt-2 uppercase tracking-widest font-semibold">YouTube Subscribers</div>
                 </div>
-                <div class="glow-card bg-brand-card/40 p-6 rounded-2xl">
-                    <div class="text-3xl sm:text-4xl font-bold font-display text-brand-falcon">2x</div>
-                    <div class="text-xs sm:text-sm text-gray-400 mt-1 uppercase tracking-wider font-semibold">WSC Int. Qualifier</div>
+                <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-brand-cardLight/80 p-6 rounded-2xl shadow-lg hover:translate-y-[-4px] transition-transform">
+                    <div class="text-4xl font-bold font-display text-brand-falcon">2x</div>
+                    <div class="text-xs text-gray-400 light:text-slate-500 mt-2 uppercase tracking-widest font-semibold">WSC Int. Qualifier</div>
                 </div>
-                <div class="glow-card bg-brand-card/40 p-6 rounded-2xl">
-                    <div class="text-3xl sm:text-4xl font-bold font-display text-white">6+</div>
-                    <div class="text-xs sm:text-sm text-gray-400 mt-1 uppercase tracking-wider font-semibold">Sports Mastered</div>
+                <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-brand-cardLight/80 p-6 rounded-2xl shadow-lg hover:translate-y-[-4px] transition-transform">
+                    <div class="text-4xl font-bold font-display text-teal-400 light:text-teal-600">6+</div>
+                    <div class="text-xs text-gray-400 light:text-slate-500 mt-2 uppercase tracking-widest font-semibold">Sports Practiced</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-24 px-4 bg-brand-card/20 border-y border-white/5 relative">
+    <!-- Meet Ibraheem Shahzeb (Biography & Vision) -->
+    <section id="about" class="py-24 px-4 bg-brand-cardDark/10 dark:bg-brand-cardDark/10 light:bg-slate-100/50 border-y border-white/5 light:border-slate-200 relative">
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
+                <!-- Graphic Card Representing Falcon House Leadership -->
                 <div class="lg:col-span-5 relative group">
-                    <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-accent to-brand-secondary rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
-                    <div class="relative bg-brand-card rounded-2xl p-8 border border-white/10 text-center">
+                    <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-accent to-brand-secondary rounded-3xl blur opacity-30 group-hover:opacity-65 transition duration-1000 animate-pulse"></div>
+                    <div class="relative bg-brand-dark dark:bg-brand-dark light:bg-white rounded-2xl p-8 border border-white/10 light:border-slate-200 text-center shadow-xl">
                         <div class="w-24 h-24 bg-gradient-to-b from-brand-accent/20 to-brand-secondary/20 rounded-full mx-auto flex items-center justify-center mb-6">
-                            <svg class="w-12 h-12 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            <!-- Premium Eagle/Falcon SVG Outline -->
+                            <svg class="w-12 h-12 text-brand-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-white mb-2">Falcon House</h3>
-                        <p class="text-sm text-brand-accent uppercase tracking-widest font-semibold mb-4">House Vice Captain</p>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Serving as the House Vice Captain at LGS JTI, one of Lahore's largest and most prestigious institutions, reflects my passion for collaborative leadership and active service.
+                        <h3 class="text-2xl font-display font-bold text-white light:text-slate-900 mb-2">Falcon House</h3>
+                        <p class="text-sm text-brand-accent uppercase tracking-widest font-bold mb-4">House Vice Captain</p>
+                        <p class="text-gray-400 light:text-slate-600 text-sm leading-relaxed">
+                            Serving as the elected House Vice Captain at LGS JTI, Lahore. I lead over hundreds of young student-athletes to collaborate, strategize, and represent the values of high discipline and teamwork.
                         </p>
-                        <div class="mt-6 inline-flex items-center space-x-2 text-xs text-gray-400 bg-white/5 px-3 py-1.5 rounded-full">
-                            <span>Lahore, Pakistan</span>
-                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                        <!-- Country indicator -->
+                        <div class="mt-6 inline-flex items-center space-x-2 text-xs text-gray-400 light:text-slate-500 bg-white/5 dark:bg-white/5 light:bg-slate-100 px-3.5 py-2 rounded-full border border-white/10 light:border-slate-200">
+                            <span>Lahore, Punjab, Pakistan</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 space-y-6">
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-white">
-                        My Life Journey & Vision
+                <!-- Text Biography & Core Mindsets -->
+                <div class="lg:col-span-7 space-y-8">
+                    <h2 class="text-3xl sm:text-5xl font-display font-bold text-white light:text-slate-950">
+                        My Life Journey & Core Vision
                     </h2>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                        From a young age, I have been deeply fascinated by technology. Being naturally tech-savvy, I constantly explore new ideas and opportunities. My ultimate goal is to become a successful entrepreneur and achieve financial independence at an early age.
+                    <p class="text-gray-300 light:text-slate-700 leading-relaxed text-lg font-light">
+                        From a very early age, I have had a strong fascination with computers, e-commerce, and structural systems. Rather than following standard academic paths, I actively explore high-leverage digital assets and independent businesses. My primary focus is to secure early financial independence.
                     </p>
-                    <p class="text-gray-300 leading-relaxed">
-                        I believe that success is built through perseverance, adaptability, and lifelong learning. Rather than viewing setbacks as final doors, I recognize each trial as a valuable lesson preparing me for greater ventures ahead. Currently, I am merging my passion for tech, creativity, and business to build my own independent game.
+                    <p class="text-gray-300 light:text-slate-700 leading-relaxed font-light">
+                        I believe in adapting rapidly. If a project or strategy doesn't land perfectly, it is never viewed as a loss; instead, it provides crucial real-world business data that prepares me for my next scale launch. Currently, I am designing my own independent video game experiences using Roblox Editor and Unity.
                     </p>
                     
+                    <!-- Core Values Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-brand-accent/10 flex items-center justify-center text-brand-accent flex-shrink-0">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="flex items-start space-x-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
                             <div>
-                                <h4 class="text-sm font-semibold text-white">Resilience over Failure</h4>
-                                <p class="text-xs text-gray-400 mt-1">Transforming losses into tactical business wisdom.</p>
+                                <h4 class="text-sm font-bold text-white light:text-slate-900">Resilient Development</h4>
+                                <p class="text-xs text-gray-400 light:text-slate-500 mt-1">Refining project failures into solid business systems.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-brand-secondary/10 flex items-center justify-center text-brand-secondary flex-shrink-0">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <div class="flex items-start space-x-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                             </div>
                             <div>
-                                <h4 class="text-sm font-semibold text-white">Continuous Growth</h4>
-                                <p class="text-xs text-gray-400 mt-1">Expanding my horizons across diverse fields.</p>
+                                <h4 class="text-sm font-bold text-white light:text-slate-900">Interdisciplinary Prowess</h4>
+                                <p class="text-xs text-gray-400 light:text-slate-500 mt-1">Expanding my expertise in tech, public debating, and athletics.</p>
                             </div>
                         </div>
                     </div>
@@ -199,351 +263,507 @@
         </div>
     </section>
 
-    <section id="ventures" class="py-24 px-4 max-w-6xl mx-auto">
+    <!-- Detailed Skillset Panel -->
+    <section id="skills" class="py-24 px-4 max-w-6xl mx-auto">
         <div class="text-center max-w-2xl mx-auto mb-16">
-            <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4">Entrepreneurial Blueprint</h2>
-            <p class="text-gray-400">My timeline of ventures, setbacks, and invaluable business wisdom gained along the way.</p>
+            <h2 class="text-3xl sm:text-5xl font-display font-bold text-white light:text-slate-950 mb-4">My Skillset & Tooling</h2>
+            <p class="text-gray-400 light:text-slate-600">A look at the professional platforms and analytical practices I have mastered.</p>
         </div>
 
-        <div class="relative border-l border-white/10 ml-4 sm:ml-6 md:ml-32 lg:ml-40 space-y-12">
-            
-            <div class="relative pl-8 sm:pl-12 group">
-                <div class="absolute -left-[13px] top-1 w-6 h-6 rounded-full bg-brand-accent border-4 border-brand-dark group-hover:scale-125 transition-transform"></div>
-                <div class="absolute left-[-160px] top-1 hidden md:block text-right w-32">
-                    <span class="text-xs font-bold text-brand-accent tracking-widest uppercase block">Age 15</span>
-                    <span class="text-xs text-gray-500">Present</span>
-                </div>
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 group-hover:border-brand-accent/30 transition-colors">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
-                        <span class="text-xs font-bold text-brand-accent uppercase tracking-wider md:hidden">Age 15 • Current</span>
-                        <h3 class="text-xl font-display font-bold text-white flex items-center gap-2">
-                            <span>Independent Game Development</span>
-                            <span class="bg-brand-accent/15 text-brand-accent text-xs px-2.5 py-0.5 rounded-full font-semibold">Active</span>
-                        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Game Dev & Engineering -->
+            <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-8 rounded-2xl border border-white/5 light:border-slate-200">
+                <div class="text-brand-accent text-3xl font-display font-bold mb-4">01</div>
+                <h3 class="text-xl font-bold text-white light:text-slate-950 mb-3">Game Engineering</h3>
+                <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">Structuring clean, modular scripts for mechanics, level management, and system logic.</p>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-gray-300 light:text-slate-700">Unity & Roblox Editor</span>
+                            <span class="text-brand-accent">100%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-1.5">
+                            <div class="bg-brand-accent h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                        Currently working on a major, creative project: developing my own game. This project synthesizes my passion for technology, coding, graphic assets, and entrepreneurship into a single standalone platform.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">C# / Unity</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Game Design</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Creative Strategy</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative pl-8 sm:pl-12 group">
-                <div class="absolute -left-[13px] top-1 w-6 h-6 rounded-full bg-brand-secondary border-4 border-brand-dark group-hover:scale-125 transition-transform"></div>
-                <div class="absolute left-[-160px] top-1 hidden md:block text-right w-32">
-                    <span class="text-xs font-bold text-brand-secondary tracking-widest uppercase block">Age 14</span>
-                    <span class="text-xs text-gray-500">Trading</span>
-                </div>
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 group-hover:border-brand-secondary/30 transition-colors">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
-                        <span class="text-xs font-bold text-brand-secondary uppercase tracking-wider md:hidden">Age 14 • Trading</span>
-                        <h3 class="text-xl font-display font-bold text-white">Financial Markets & Asset Analysis</h3>
-                    </div>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                        Ventured into active financial trading, learning charts, market trends, and risk management. While I gained key experience, I realized that limited investment capital made early returns small relative to the effort. Decided to pause active trading to prioritize assets with larger long-term scale potentials.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Technical Analysis</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Risk Mitigation</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Capital Economics</span>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-gray-300 light:text-slate-700">Level & Sound Blueprinting</span>
+                            <span class="text-brand-accent">100%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-1.5">
+                            <div class="bg-brand-accent h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="relative pl-8 sm:pl-12 group">
-                <div class="absolute -left-[13px] top-1 w-6 h-6 rounded-full bg-red-500 border-4 border-brand-dark group-hover:scale-125 transition-transform"></div>
-                <div class="absolute left-[-160px] top-1 hidden md:block text-right w-32">
-                    <span class="text-xs font-bold text-red-500 tracking-widest uppercase block">Age 13</span>
-                    <span class="text-xs text-gray-500">Freelancing</span>
-                </div>
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 group-hover:border-red-500/30 transition-colors">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
-                        <span class="text-xs font-bold text-red-500 uppercase tracking-wider md:hidden">Age 13 • Freelancing & Gaming</span>
-                        <h3 class="text-xl font-display font-bold text-white">Fiverr Video Services & Gaming Enterprise</h3>
+            <!-- Content Creation & Media -->
+            <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-8 rounded-2xl border border-white/5 light:border-slate-200">
+                <div class="text-brand-secondary text-3xl font-display font-bold mb-4">02</div>
+                <h3 class="text-xl font-bold text-white light:text-slate-950 mb-3">Digital Media</h3>
+                <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">Editing complex high-retention video pipelines, graphic design, and scaling visual assets.</p>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-gray-300 light:text-slate-700">Premiere Pro & After Effects</span>
+                            <span class="text-brand-secondary">100%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-1.5">
+                            <div class="bg-brand-secondary h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                        Offered freelance video editing services on Fiverr and launched an online gaming page. While these first ventures did not yield immediate financial success and resulted in initial losses, they taught me crucial real-world lessons about client communication, marketing, and resilience.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Freelance Dynamics</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Client Acquisition</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Resilience Building</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative pl-8 sm:pl-12 group">
-                <div class="absolute -left-[13px] top-1 w-6 h-6 rounded-full bg-brand-falcon border-4 border-brand-dark group-hover:scale-125 transition-transform"></div>
-                <div class="absolute left-[-160px] top-1 hidden md:block text-right w-32">
-                    <span class="text-xs font-bold text-brand-falcon tracking-widest uppercase block">Age 10-13</span>
-                    <span class="text-xs text-gray-500">Media</span>
-                </div>
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 group-hover:border-brand-falcon/30 transition-colors">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
-                        <span class="text-xs font-bold text-brand-falcon uppercase tracking-wider md:hidden">Age 10 • YouTube Creator</span>
-                        <h3 class="text-xl font-display font-bold text-white">Content Creation & YouTube Channel</h3>
-                    </div>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                        Kicked off my entrepreneurial journey by launching a YouTube channel. Over three years, I grew the channel to over 1,000 subscribers. This early passion-driven asset built a powerful groundwork in digital media and audience engagement.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Video Editing</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Audience Growth</span>
-                        <span class="bg-white/5 px-3 py-1 rounded-full text-xs text-gray-400">Brand Management</span>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-gray-300 light:text-slate-700">Audience Growth & SEO</span>
+                            <span class="text-brand-secondary">100%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-1.5">
+                            <div class="bg-brand-secondary h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Asset Evaluation & Markets -->
+            <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-8 rounded-2xl border border-white/5 light:border-slate-200">
+                <div class="text-brand-falcon text-3xl font-display font-bold mb-4">03</div>
+                <h3 class="text-xl font-bold text-white light:text-slate-950 mb-3">Market Analysis</h3>
+                <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">Interpreting charts, studying financial market structures, and analyzing startup logistics.</p>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-gray-300 light:text-slate-700">Technical Analysis (Candlesticks, Trends)</span>
+                            <span class="text-brand-falcon">100%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-1.5">
+                            <div class="bg-brand-falcon h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-gray-300 light:text-slate-700">Risk Mitigation Planning</span>
+                            <span class="text-brand-falcon">100%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-1.5">
+                            <div class="bg-brand-falcon h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="portfolio" class="py-24 px-4 bg-brand-card/20 border-y border-white/5">
+    <!-- The Entrepreneurial Journey Timeline -->
+    <section id="ventures" class="py-24 px-4 bg-brand-cardDark/5 dark:bg-brand-cardDark/5 light:bg-slate-100/50">
         <div class="max-w-6xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4">Extracurricular Profiles</h2>
-                <p class="text-gray-400">Explore my key achievements in leadership, academic debates, global competitions, and varsity sports.</p>
+                <h2 class="text-3xl sm:text-5xl font-display font-bold text-white light:text-slate-950 mb-4">Entrepreneurial Blueprint</h2>
+                <p class="text-gray-400 light:text-slate-600">My timeline of ventures, milestones, and business structures.</p>
+            </div>
+
+            <div class="relative border-l-2 border-slate-800 light:border-slate-200 ml-4 sm:ml-6 md:ml-32 lg:ml-40 space-y-12">
                 
-                <div class="flex justify-center mt-8 bg-brand-dark/60 p-1.5 rounded-xl border border-white/5 max-w-sm mx-auto">
-                    <button onclick="switchTab('academics')" id="tab-btn-academics" class="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all bg-gradient-to-r from-brand-accent to-brand-secondary text-brand-dark">
+                <!-- 2026 - Game Development (Current) -->
+                <div class="relative pl-8 sm:pl-12 group">
+                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-brand-accent border-4 border-brand-dark light:border-slate-50 group-hover:scale-125 transition-transform"></div>
+                    <div class="absolute left-[-160px] top-1.5 hidden md:block text-right w-32">
+                        <span class="text-xs font-bold text-brand-accent tracking-widest uppercase block">2026</span>
+                        <span class="text-xs text-gray-500 font-semibold">Current Venture</span>
+                    </div>
+                    <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-white p-8 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-accent/35 transition-colors shadow-lg">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+                            <span class="text-xs font-bold text-brand-accent uppercase tracking-wider md:hidden">2026 • Active</span>
+                            <h3 class="text-xl font-display font-bold text-white light:text-slate-900 flex items-center gap-2">
+                                <span>Independent Game Studio Development</span>
+                                <span class="bg-brand-accent/15 text-brand-accent text-xs px-2.5 py-0.5 rounded-full font-semibold">Active</span>
+                            </h3>
+                        </div>
+                        <p class="text-gray-300 light:text-slate-600 text-sm leading-relaxed mb-4">
+                            Synthesizing my coding skillset and marketing strategies to build a complete indie game from scratch. Handling physics programming, customized sprites/assets, and systematic level designs.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-brand-accent/10 px-3 py-1.5 rounded-xl text-xs text-brand-accent font-semibold">Roblox Editor</span>
+                            <span class="bg-brand-accent/10 px-3 py-1.5 rounded-xl text-xs text-brand-accent font-semibold">Unity Engine</span>
+                            <span class="bg-brand-accent/10 px-3 py-1.5 rounded-xl text-xs text-brand-accent font-semibold">Asset Pipeline</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025 - Financial Trading -->
+                <div class="relative pl-8 sm:pl-12 group">
+                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-brand-secondary border-4 border-brand-dark light:border-slate-50 group-hover:scale-125 transition-transform"></div>
+                    <div class="absolute left-[-160px] top-1.5 hidden md:block text-right w-32">
+                        <span class="text-xs font-bold text-brand-secondary tracking-widest uppercase block">2025</span>
+                        <span class="text-xs text-gray-500 font-semibold">Analysis</span>
+                    </div>
+                    <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-white p-8 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-secondary/35 transition-colors shadow-lg">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+                            <span class="text-xs font-bold text-brand-secondary uppercase tracking-wider md:hidden">2025 • Finished</span>
+                            <h3 class="text-xl font-display font-bold text-white light:text-slate-900">Financial Markets & Tech Analysis</h3>
+                        </div>
+                        <p class="text-gray-300 light:text-slate-600 text-sm leading-relaxed mb-4">
+                            Dived deep into risk management and analyzing asset flow patterns. While it helped develop a sharp, metrics-oriented mindset, I made the calculated decision to temporarily pause active trading to focus on developing higher-scaling software products first.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-brand-secondary/10 px-3 py-1.5 rounded-xl text-xs text-brand-secondary font-semibold">Chart Patterns</span>
+                            <span class="bg-brand-secondary/10 px-3 py-1.5 rounded-xl text-xs text-brand-secondary font-semibold">Asset Allocation</span>
+                            <span class="bg-brand-secondary/10 px-3 py-1.5 rounded-xl text-xs text-brand-secondary font-semibold">Statistics</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2024 - Fiverr & Gaming Venture -->
+                <div class="relative pl-8 sm:pl-12 group">
+                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-red-500 border-4 border-brand-dark light:border-slate-50 group-hover:scale-125 transition-transform"></div>
+                    <div class="absolute left-[-160px] top-1.5 hidden md:block text-right w-32">
+                        <span class="text-xs font-bold text-red-500 tracking-widest uppercase block">2024</span>
+                        <span class="text-xs text-gray-500 font-semibold">Freelance</span>
+                    </div>
+                    <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-white p-8 rounded-2xl border border-white/5 light:border-slate-200 hover:border-red-500/35 transition-colors shadow-lg">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+                            <span class="text-xs font-bold text-red-500 uppercase tracking-wider md:hidden">2024 • Retrospective</span>
+                            <h3 class="text-xl font-display font-bold text-white light:text-slate-900">Fiverr Video Services & Gaming Hub</h3>
+                        </div>
+                        <p class="text-gray-300 light:text-slate-600 text-sm leading-relaxed mb-4">
+                            Launched an online brand delivering high-impact media designs and freelance video rendering solutions. Even though early client acquisition was challenging, this taught me priceless business lessons on client negotiation and building strong professional proposals.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-red-500/10 px-3 py-1.5 rounded-xl text-xs text-red-500 font-semibold">Client Outreach</span>
+                            <span class="bg-red-500/10 px-3 py-1.5 rounded-xl text-xs text-red-500 font-semibold">Pricing Strategy</span>
+                            <span class="bg-red-500/10 px-3 py-1.5 rounded-xl text-xs text-red-500 font-semibold">Brand Value</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2020-2023 - Content Creation -->
+                <div class="relative pl-8 sm:pl-12 group">
+                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-brand-falcon border-4 border-brand-dark light:border-slate-50 group-hover:scale-125 transition-transform"></div>
+                    <div class="absolute left-[-160px] top-1.5 hidden md:block text-right w-32">
+                        <span class="text-xs font-bold text-brand-falcon tracking-widest uppercase block">2020-2023</span>
+                        <span class="text-xs text-gray-500 font-semibold">Content</span>
+                    </div>
+                    <div class="glass-panel bg-brand-cardDark/40 dark:bg-brand-cardDark/40 light:bg-white p-8 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-falcon/35 transition-colors shadow-lg">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+                            <span class="text-xs font-bold text-brand-falcon uppercase tracking-wider md:hidden">2020-2023 • YouTube Creator</span>
+                            <h3 class="text-xl font-display font-bold text-white light:text-slate-900">Media Content Production (YouTube Hub)</h3>
+                        </div>
+                        <p class="text-gray-300 light:text-slate-600 text-sm leading-relaxed mb-4">
+                            Fostered video-editing expertise, managing timelines and scripts to successfully grow my YouTube channel to over 1,000 subscribers. This laid a deep foundation for high-quality video production and understanding retention analytics.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-brand-falcon/10 px-3 py-1.5 rounded-xl text-xs text-brand-falcon font-semibold">Motion Graphics</span>
+                            <span class="bg-brand-falcon/10 px-3 py-1.5 rounded-xl text-xs text-brand-falcon font-semibold">Video Rendering</span>
+                            <span class="bg-brand-falcon/10 px-3 py-1.5 rounded-xl text-xs text-brand-falcon font-semibold">Audience Engagement</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements & Sports Tabbed Showcase -->
+    <section id="portfolio" class="py-24 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-5xl font-display font-bold text-white light:text-slate-950 mb-4">Extracurricular Profiles</h2>
+                <p class="text-gray-400 light:text-slate-600">Review my key achievements in leadership, international competitions, and varsity athletic tournaments.</p>
+                
+                <!-- Tab Switching Panel -->
+                <div class="flex justify-center mt-8 bg-brand-dark/60 light:bg-slate-100 p-1.5 rounded-2xl border border-white/5 light:border-slate-200 max-w-sm mx-auto shadow-inner">
+                    <button onclick="switchTab('academics')" id="tab-btn-academics" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-brand-accent to-brand-secondary text-white">
                         Academics & Leadership
                     </button>
-                    <button onclick="switchTab('sports')" id="tab-btn-sports" class="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-gray-400 hover:text-white">
+                    <button onclick="switchTab('sports')" id="tab-btn-sports" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all text-gray-400 dark:text-gray-400 light:text-slate-500 hover:text-white light:hover:text-slate-800">
                         Sports & Athletics
                     </button>
                 </div>
             </div>
 
+            <!-- Tab Content: Academics & Leadership -->
             <div id="tab-academics" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
+                <!-- Card 1 -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6 shadow-md shadow-brand-accent/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">World Scholar's Cup (WSC)</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Represented my school twice on the prestigious global platform of the World Scholar's Cup, qualifying for the high-intensity International Round on both occasions.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">World Scholar's Cup (WSC)</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Competed in rigorous regional and global events, demonstrating extensive logical analysis to qualify for the prestigious WSC International Round on two separate competitive instances.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-accent uppercase tracking-wider">2x International Qualifier</span>
+                    <span class="text-xs font-extrabold text-brand-accent uppercase tracking-widest">2x International Qualifier</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
+                <!-- Card 2 -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6 shadow-md shadow-brand-accent/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Model United Nations (MUN)</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Participated in multiple competitive MUN conferences, sharpening my global awareness, public speaking, negotiation diplomacy, and critical thinking.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Model United Nations (MUN)</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Actively participated as an official delegate in prestigious MUN platforms, strengthening my public speaking, logical argumentation, and global political analysis.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-accent uppercase tracking-wider">Diplomacy & Public Policy</span>
+                    <span class="text-xs font-extrabold text-brand-accent uppercase tracking-widest">Global Policy & Debate</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
+                <!-- Card 3 -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6 shadow-md shadow-brand-accent/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Class Captaincy Roles</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Selected multiple times as the Class Captain in junior and middle school, demonstrating structural teamwork, peer mediation, and group coordination skills.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Class Captaincy & Leadership</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Unanimously selected by teachers and peers as Class Captain. Managed communication flows, administration tasks, and organized various class activities.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-accent uppercase tracking-wider">Peer Leadership</span>
+                    <span class="text-xs font-extrabold text-brand-accent uppercase tracking-widest">Leadership & Mediation</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
+                <!-- Card 4 -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6 shadow-md shadow-brand-accent/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Math Competition Finalist</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Qualified for the final round of a premier middle school mathematics competition, showcasing strong analytical power and logical problem-solving.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Math Competition Finalist</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Excelled in dynamic computational logical events, successfully qualifying for the final round of a premier middle school national math competition.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-accent uppercase tracking-wider">Analytical Mastery</span>
+                    <span class="text-xs font-extrabold text-brand-accent uppercase tracking-widest">Computational Logic</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
+                <!-- Card 5 -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-accent/30 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                        <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent mb-6 shadow-md shadow-brand-accent/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Oratorical Debate & Poetry</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Secured top positions across multiple Urdu and English debate forums and poetry recitals, highlighting persuasive writing and presentation.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Oratorical Debate & Poetry</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Secured competitive high rankings in Urdu and English poetry recitals and formal debates. Expresses balanced language control, structural cadence, and high confidence.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-accent uppercase tracking-wider">Language & Poetics</span>
+                    <span class="text-xs font-extrabold text-brand-accent uppercase tracking-widest">Public Rhetoric</span>
                 </div>
             </div>
 
+            <!-- Tab Content: Sports & Athletics (Hidden by Default) -->
             <div id="tab-sports" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-secondary/30 transition-all flex flex-col justify-between">
+                <!-- Football -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-secondary/35 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
-                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke-width="1.5"></path>
-                                <path d="M2 12h20" stroke-width="1.5"></path>
+                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6 shadow-md shadow-brand-secondary/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                <path d="M2 12h20"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Football (Primary Sport)</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Represented the school squad across several interschool tournaments, exhibiting consistent team spirit, precision, and physical agility.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Football (Primary Athlete)</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            My absolute primary athletic focus. Played as key midfield & attacking support for the varsity football team across high-leverage interschool competitions.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-secondary uppercase tracking-wider">Varsity Player</span>
+                    <span class="text-xs font-extrabold text-brand-secondary uppercase tracking-widest">Active Varsity Athlete</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-secondary/30 transition-all flex flex-col justify-between">
+                <!-- Water Polo -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-secondary/35 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 20a6 3 0 0 1 12 0v0a6 3 0 0 1 12 0M3 16a6 3 0 0 1 12 0v0a6 3 0 0 1 12 0"></path>
+                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6 shadow-md shadow-brand-secondary/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 20a6 3 0 0 1 12 0v0a6 3 0 0 1 12 0M3 16a6 3 0 0 1 12 0v0a6 3 0 0 1 12 0"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Water Polo Team Captain</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Captained the water polo lineup during Grade 8 Sports Week, organizing tactics and navigating the team into the Grand Finals.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-2">Water Polo Squad Captain</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Appointed Team Captain for the Grade 8 Water Polo campaign, strategizing plays and defensive structures that secured a final qualification.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-secondary uppercase tracking-wider">Grade 8 Team Captain</span>
+                    <span class="text-xs font-extrabold text-brand-secondary uppercase tracking-widest">Grade 8 Captain</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-secondary/30 transition-all flex flex-col justify-between">
+                <!-- Swimming -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-secondary/35 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6 shadow-md shadow-brand-secondary/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Varsity Swimming</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Served as Vice Captain of Varsity Swimming through Grades 6, 7, and 8, ensuring competitive pace and coordination during key relay events.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Varsity Swimming</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Elected as Varsity Swimming Vice Captain across three competitive years (Grades 6, 7, and 8). Specialized in fast-paced freestyle and relay sprints.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-secondary uppercase tracking-wider">Vice Captain (Grade 6, 7, 8)</span>
+                    <span class="text-xs font-extrabold text-brand-secondary uppercase tracking-widest">Vice Captain (Grade 6-8)</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-secondary/30 transition-all flex flex-col justify-between">
+                <!-- Chess -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-secondary/35 transition-all flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.11a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6 shadow-md shadow-brand-secondary/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.11a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Chess Captaincy</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Served as Chess Captain in Grade 6, managing critical player setups to build one of the strongest tactical boards of the academic year.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Chess Captaincy</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Appointed as Class Chess Captain in Grade 6. Facilitated logic training and structured highly disciplined board defensive schemes for inter-class tournaments.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-secondary uppercase tracking-wider">Chess Captain (Grade 6)</span>
+                    <span class="text-xs font-extrabold text-brand-secondary uppercase tracking-widest">Chess Captain (Grade 6)</span>
                 </div>
 
-                <div class="glow-card bg-brand-card p-6 rounded-2xl border border-white/10 hover:border-brand-secondary/30 transition-all flex flex-col justify-between col-span-1 md:col-span-2 lg:col-span-1">
+                <!-- Multi-Sport Racquets -->
+                <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-slate-100 p-6 rounded-2xl border border-white/5 light:border-slate-200 hover:border-brand-secondary/35 transition-all flex flex-col justify-between col-span-1 md:col-span-2 lg:col-span-1">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                        <div class="w-12 h-12 rounded-xl bg-brand-secondary/10 flex items-center justify-center text-brand-secondary mb-6 shadow-md shadow-brand-secondary/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Badminton, Table Tennis & Padel</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
-                            Active participation across multiple racquet sports, reinforcing swift reactions, speed pacing, and balanced cardiovascular endurance.
+                        <h3 class="text-xl font-display font-bold text-white light:text-slate-900 mb-3">Padel, Badminton & Ping Pong</h3>
+                        <p class="text-sm text-gray-400 light:text-slate-600 leading-relaxed mb-6">
+                            Trained and specialized in high-reflex racquet sports, focusing on strategic ball mechanics, positioning, and stamina.
                         </p>
                     </div>
-                    <span class="text-xs font-bold text-brand-secondary uppercase tracking-wider">Diverse Athleticism</span>
+                    <span class="text-xs font-extrabold text-brand-secondary uppercase tracking-widest">Diverse Athletic Range</span>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <section id="contact" class="py-24 px-4 bg-brand-card/20 border-t border-white/5 relative">
+    <!-- Connect & Contact Section -->
+    <section id="contact" class="py-24 px-4 bg-brand-cardDark/10 dark:bg-brand-cardDark/10 light:bg-slate-100 border-t border-white/5 light:border-slate-200 relative">
         <div class="max-w-4xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4">Start a Conversation</h2>
-                <p class="text-gray-400">Whether you want to discuss game dev collaboration, ask about Falcon House leadership, or connect regarding trading and entrepreneurship, drop a line below.</p>
+                <h2 class="text-3xl sm:text-5xl font-display font-bold text-white light:text-slate-950 mb-4">Start a Conversation</h2>
+                <p class="text-gray-400 light:text-slate-600">Want to talk about game development partnerships, explore e-commerce models, or connect? Leave a secure message below.</p>
             </div>
 
-            <div class="glow-card bg-brand-card rounded-3xl border border-white/10 p-8 sm:p-12 relative overflow-hidden">
+            <div class="glass-panel bg-brand-cardDark/50 dark:bg-brand-cardDark/50 light:bg-white rounded-3xl border border-white/10 light:border-slate-200 p-8 sm:p-12 relative overflow-hidden shadow-xl">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/5 rounded-full blur-[40px] pointer-events-none"></div>
 
                 <form onsubmit="handleContactSubmit(event)" class="space-y-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Full Name</label>
-                            <input type="text" required class="w-full bg-brand-dark/60 border border-white/10 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-xl px-4 py-3.5 text-white outline-none transition-colors" placeholder="e.g. Ali Ahmed">
+                            <label class="block text-xs font-extrabold text-gray-400 light:text-slate-500 uppercase tracking-widest mb-2">Full Name</label>
+                            <input type="text" required class="w-full bg-brand-dark/40 dark:bg-brand-dark/40 light:bg-slate-50 border border-white/10 light:border-slate-200 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-xl px-4 py-3.5 text-white light:text-slate-900 outline-none transition-all" placeholder="e.g. Haroon Ali">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Email Address</label>
-                            <input type="email" required class="w-full bg-brand-dark/60 border border-white/10 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-xl px-4 py-3.5 text-white outline-none transition-colors" placeholder="name@domain.com">
+                            <label class="block text-xs font-extrabold text-gray-400 light:text-slate-500 uppercase tracking-widest mb-2">Email Address</label>
+                            <input type="email" required class="w-full bg-brand-dark/40 dark:bg-brand-dark/40 light:bg-slate-50 border border-white/10 light:border-slate-200 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-xl px-4 py-3.5 text-white light:text-slate-900 outline-none transition-all" placeholder="name@domain.com">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Message</label>
-                        <textarea required rows="4" class="w-full bg-brand-dark/60 border border-white/10 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-xl px-4 py-3.5 text-white outline-none transition-colors resize-none" placeholder="Write your message here..."></textarea>
+                        <label class="block text-xs font-extrabold text-gray-400 light:text-slate-500 uppercase tracking-widest mb-2">Message Content</label>
+                        <textarea required rows="4" class="w-full bg-brand-dark/40 dark:bg-brand-dark/40 light:bg-slate-50 border border-white/10 light:border-slate-200 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-xl px-4 py-3.5 text-white light:text-slate-900 outline-none transition-all resize-none" placeholder="Write your context here..."></textarea>
                     </div>
 
-                    <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-brand-dark font-bold hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] transition-all">
-                        Send Message
+                    <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-bold hover:shadow-[0_0_25px_rgba(20,184,166,0.4)] hover:scale-[1.02] transition-all">
+                        Send Secure Message
                     </button>
                 </form>
             </div>
         </div>
     </section>
 
-    <footer class="bg-brand-dark border-t border-white/5 py-12 px-4 text-center text-sm text-gray-500">
+    <!-- Footer -->
+    <footer class="bg-brand-dark dark:bg-brand-dark light:bg-white border-t border-white/5 light:border-slate-200 py-12 px-4 text-center text-sm text-gray-500 transition-colors">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-accent to-brand-secondary flex items-center justify-center font-display font-bold text-white text-base">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-accent to-brand-secondary flex items-center justify-center font-display font-bold text-white text-base">
                     IS
                 </div>
-                <span class="font-display font-bold text-white tracking-wider">IBRAHEEM SHAHZEB</span>
+                <span class="font-display font-bold text-white light:text-slate-900 tracking-wider">IBRAHEEM SHAHZEB</span>
             </div>
             
-            <p>© 2026 Ibraheem Shahzeb. Built with modern Tailwind CSS.</p>
+            <p class="text-xs text-gray-500 light:text-slate-500">© 2026 Ibraheem Shahzeb. All intellectual assets secure.</p>
 
-            <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-6 font-semibold text-xs text-gray-400 light:text-slate-600">
                 <a href="#about" class="hover:text-brand-accent transition-colors">Journey</a>
                 <a href="#ventures" class="hover:text-brand-accent transition-colors">Timeline</a>
+                <a href="#skills" class="hover:text-brand-accent transition-colors">Skillset</a>
                 <a href="#portfolio" class="hover:text-brand-accent transition-colors">Achievements</a>
             </div>
         </div>
     </footer>
 
+    <!-- Interactive JS Core Engine -->
     <script>
+        // Toggle Mobile Nav Menu
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
         }
 
+        // Dark / Light Theme Switching System
+        function toggleTheme() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            const sunIconMobile = document.getElementById('sun-icon-mobile');
+            const moonIconMobile = document.getElementById('moon-icon-mobile');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                
+                // Toggle Desktop icons
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                // Toggle Mobile icons
+                sunIconMobile.classList.remove('hidden');
+                moonIconMobile.classList.add('hidden');
+                
+                showToast("Switched to Light Mode Aesthetics");
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                
+                // Toggle Desktop icons
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                // Toggle Mobile icons
+                sunIconMobile.classList.add('hidden');
+                moonIconMobile.classList.remove('hidden');
+
+                showToast("Switched to Deep Dark Mode Aesthetics");
+            }
+        }
+
+        // Custom Toast Notification Function (replaces standard pop-ups)
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-message');
             toastMsg.innerText = message;
+            
             toast.classList.remove('translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
             
             setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
                 toast.classList.remove('translate-y-0', 'opacity-100');
-            }, 3500);
+            }, 3000);
         }
 
+        // Handle Contact Submission
         function handleContactSubmit(event) {
             event.preventDefault();
-            showToast("Success! Thank you, I'll be in touch soon.");
+            showToast("Success! Your message has been sent to Ibraheem.");
             event.target.reset();
         }
 
+        // Switchable Profiles Tab Manager (Academics vs Sports)
         function switchTab(tabId) {
             const tabAcademics = document.getElementById('tab-academics');
             const tabSports = document.getElementById('tab-sports');
@@ -553,15 +773,20 @@
             if (tabId === 'academics') {
                 tabAcademics.classList.remove('hidden');
                 tabSports.classList.add('hidden');
-                btnAcademics.className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all bg-gradient-to-r from-brand-accent to-brand-secondary text-brand-dark";
-                btnSports.className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-gray-400 hover:text-white";
+                
+                // Style Active and Inactive buttons
+                btnAcademics.className = "flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-brand-accent to-brand-secondary text-white shadow-md";
+                btnSports.className = "flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all text-gray-400 dark:text-gray-400 light:text-slate-500 hover:text-white light:hover:text-slate-800";
             } else {
                 tabSports.classList.remove('hidden');
                 tabAcademics.classList.add('hidden');
-                btnSports.className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all bg-gradient-to-r from-brand-accent to-brand-secondary text-brand-dark";
-                btnAcademics.className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-gray-400 hover:text-white";
+
+                btnSports.className = "flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-brand-accent to-brand-secondary text-white shadow-md";
+                btnAcademics.className = "flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all text-gray-400 dark:text-gray-400 light:text-slate-500 hover:text-white light:hover:text-slate-800";
             }
         }
     </script>
 </body>
 </html>
+
+```
